@@ -10,6 +10,8 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import com.yantra.yfc.log.YFCLogCategory;
+
 /**
  * Load and retrieve resource/property. At class loading, it will load from the
  * following property files: <i>/resources/yfs.properties,
@@ -31,6 +33,8 @@ import java.util.ResourceBundle;
  * 
  */
 public class ResourceUtil {
+	private static YFCLogCategory logger= YFCLogCategory.instance(YFCLogCategory.class);
+
 	private static Properties resources = new Properties();
 
 	private static List<ResourceBundle> msgResBundles = new ArrayList<ResourceBundle>();
@@ -298,59 +302,5 @@ public class ResourceUtil {
 		}
 		return desc;
 	}
-	
-	 public static void list() {
-	        logger.debug("Managing Following Properties");
-	        Enumeration keys = resources.keys();
-	        StringBuffer sb = new StringBuffer();
-
-	        while (keys.hasMoreElements()) {
-	            String key = (String) keys.nextElement();
-	            sb.append(key).append("=").append(resources.getProperty(key)).append("\n");
-	        }
-	        logger.debug(sb.toString());
-	}
-	 
-	 /**
-	     * This method returns the error description for the given errorCode as specified in
-	     * the message Bundle file. If a matching entry is not found
-	     * then it returns "Error Description Not Found"
-	     * @param errorCode
-	     * @return
-	     */
-
-	    public static String resolveMsgCode(String errorCode) {
-	        return resolveMsgCode(errorCode, null);
-	    }
-
-	    /**
-	     * This method returns the error description for the given errorCode as specified in
-	     * the message Bundle file. If a matching entry is not found
-	     * then it returns "Error Description Not Found".
-	     *
-	     * Use errorArgs to parameterize error description
-	     * @param errorCode
-	     * @param errorArgs
-	     * @return
-	     */
-	    public static String resolveMsgCode(String errorCode, Object[] errorArgs) {
-	        String desc = null;
-	        int resBundleIndex = -1;
-
-	        while (desc == null && ++resBundleIndex < numMsgResBundlesLoaded) {
-	            ResourceBundle rb = (ResourceBundle) msgResBundles.get(resBundleIndex);
-	            try {
-	                desc = rb.getString(errorCode);
-	                desc = MessageFormat.format(desc, errorArgs);
-	            } catch (MissingResourceException mre) {
-	                //Ignore as we'd set it to erro desc not found
-	                desc = DESC_NOT_FOUND;
-	            } catch (IllegalArgumentException e) {
-	                //Ignore. If any error had occured, it'll be evident
-	                //from the raw text that is present as error description
-	            }
-	        }
-	        return desc;
-	    }
 
 }

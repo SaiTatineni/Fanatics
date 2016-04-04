@@ -34,8 +34,8 @@ import java.util.Arrays;
  */
 
 public class PasswordUtils {
-
-	 /**
+/*
+	 *//**
  	 * Gets the hash as byte array using the SHA-256 algo for a given string and salt
  	 * @param password the password
  	 * @param salt the salt
@@ -44,7 +44,7 @@ public class PasswordUtils {
  	 * 
  	 * @throws NoSuchAlgorithmException the no such algorithm exception
  	 * @throws UnsupportedEncodingException the unsupported encoding exception
- 	 */
+ 	 *//*
  	public static byte[] getHash(String password, byte[] salt) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 	       MessageDigest digest = MessageDigest.getInstance(ResourceUtil.get("dsw.default.hash.scheme","SHA-256"));
 	       digest.reset();
@@ -53,13 +53,13 @@ public class PasswordUtils {
 	 }
 	 
 
-	 /**
+	 *//**
  	 * Compare existing hashString with the enterted string    
  	 * @param existing the existing
  	 * @param entered the entered
  	 * 
  	 * @return true, if successful
- 	 */
+ 	 *//*
  	public static boolean compare(String existing,String entered){
 		boolean retFlag = false;
 		try{
@@ -75,7 +75,7 @@ public class PasswordUtils {
 
 	 }
 	
-	/**
+	*//**
 	 * Gets the hash as Base-64 encoded string using the SHA-256 algo for a given string
 	 * 
 	 * @param password the password
@@ -83,19 +83,19 @@ public class PasswordUtils {
 	 * @return the hash
 	 * 
 	 * @throws Exception the exception
-	 */
+	 *//*
 	public static final String getHash(String password)throws Exception{
 		return Base64Coder.encode(getHash(password,null));
 	}
 	
 	
-	/**
+	*//**
 	 * The main method
 	 * 
 	 * @param args the arguments
 	 * 
 	 * @throws Exception the exception
-	 */
+	 *//*
 	public static void main(String[] args) throws Exception{
 		
 		String testStr= "testPass" ;
@@ -106,5 +106,5 @@ public class PasswordUtils {
 //		System.out.println("Comparing Eqality:"+compare(hashStr,testStr));
 //		System.out.println("Comparing Unequal:"+compare(hashStr,test1Str));
 		
-	}
+	}*/
 }

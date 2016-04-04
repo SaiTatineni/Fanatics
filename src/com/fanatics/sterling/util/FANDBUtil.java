@@ -5,12 +5,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.yantra.yfc.dblayer.YFCContext;
+import com.yantra.yfc.log.YFCLogCategory;
 import com.yantra.yfs.japi.YFSEnvironment;
 import com.yantra.yfs.japi.YFSException;
 
 public class FANDBUtil {
 
-	private static Logger logger = Logger.getLogger(DSWDBUtil.class.getName());
+	private static YFCLogCategory logger= YFCLogCategory.instance(YFCLogCategory.class);
 	
 	public static ArrayList<Object[]> getDBResult(YFSEnvironment env, String sqlQuery,int noOfColumnus) throws Exception
 	{

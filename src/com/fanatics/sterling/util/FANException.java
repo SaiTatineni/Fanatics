@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import com.yantra.yfc.log.YFCLogCategory;
 import com.yantra.yfs.japi.YFSException;
 
 
@@ -61,7 +62,7 @@ public class FANException extends YFSException {
 	 */
 	private static final long serialVersionUID = 8817622200536829578L;
 
-	private static Logger logger = Logger.getLogger(FANException.class.getName());
+	private static YFCLogCategory logger= YFCLogCategory.instance(YFCLogCategory.class);
     
     private String errorCode = "";
     private Hashtable errorAttributes = null;
