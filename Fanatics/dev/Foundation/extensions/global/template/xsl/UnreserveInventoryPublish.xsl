@@ -9,6 +9,12 @@
 			<xsl:attribute name="OrderNo">
 			<xsl:value-of select="//Order/@OrderNo" />
 			</xsl:attribute>
+			<xsl:attribute name="EntryType"> 
+            <xsl:value-of select="//Order/@EntryType" /> 
+            </xsl:attribute> 
+            <xsl:attribute name="SellerOrganizationCode"> 
+            <xsl:value-of select="//Order/@SellerOrganizationCode" /> 
+            </xsl:attribute> 
 			<OrderLines>
 				<xsl:for-each select="Order/OrderLines/OrderLine">
 				<OrderLine>
