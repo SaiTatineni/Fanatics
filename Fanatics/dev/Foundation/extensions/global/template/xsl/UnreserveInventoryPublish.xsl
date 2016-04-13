@@ -3,9 +3,6 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:template match="/">
 		<Order>
-			<xsl:attribute name="EnterpriseCode">
-			<xsl:value-of select="//Order/@EnterpriseCode" />
-			</xsl:attribute>
 			<xsl:attribute name="OrderNo">
 			<xsl:value-of select="//Order/@OrderNo" />
 			</xsl:attribute>
@@ -24,6 +21,8 @@
 					select="//Order/OrderLines/OrderLine/@PrimeLineNo" /></xsl:attribute>
 					<xsl:attribute name="SubLineNo"><xsl:value-of
 					select="//Order/OrderLines/OrderLine/@SubLineNo" /></xsl:attribute>
+					<xsl:attribute name="Status"><xsl:value-of
+					select="//Order/OrderLines/OrderLine/@Status" /></xsl:attribute>
 					
 					<Item>
 						<xsl:attribute name="ItemID"><xsl:value-of
@@ -39,6 +38,8 @@
 			<CustomAttributes>
 				<xsl:attribute name="CustomerOrderNo"><xsl:value-of
 				select="//Order/CustomAttributes/@CustomerOrderNo" /></xsl:attribute>
+				<xsl:attribute name="CartID"><xsl:value-of
+				select="//Order/CustomAttributes/@CartID" /></xsl:attribute>
 			</CustomAttributes>
 		</Order>
 	</xsl:template>
