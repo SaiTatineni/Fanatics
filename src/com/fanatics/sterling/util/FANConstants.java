@@ -306,4 +306,7 @@ public interface FANConstants {
 	public static final String ATT_SHIPMENT_TYPE = "ShipmentType";
 	public static final String AT_SHIPMENT_KEY = "ShipmentKey";	
 	
+	public static final String ARG_fanatics_CALLING_ORG_CODE = "CallingOrganizationCode";
+	public static final String ATT_fanatics_DEFAULT_DISTRIBUTION_RULE_ID = "DefaultDistributionRuleId";
+	public static final String ATT_fanatics_OPERATION = "Operation";
 }
