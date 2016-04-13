@@ -30,7 +30,7 @@ package com.fanatics.sterling.constants;
  * without prior authorization from the owner.
  *
  */
-
+ 
 public interface CreateOrderConstants {
 		
 		//Fanatics DB Sequences
