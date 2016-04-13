@@ -71,11 +71,13 @@ public class FANYFSGetOrderNoUEImpl implements YFSGetOrderNoUE {
 			seqNoStr   = Long.toString(seqNo);
 
 		} catch (Exception e) {
+			log.error("FANYFSGetOrderNoUEImpl --> ERROR: " + e.getMessage(), e);
 			throw new YFSUserExitException("Error_SEQ_FANATICS_ORDER_NO");
 		}
+		
 		log.verbose("Returning Order no:" + seqNoStr + "for DocumentType::" + documentType);
 
-		log.verbose("Leaving FANYFSGetOrderNoUEImpl->getOrderNo");
+		log.verbose("Leaving FANYFSGetOrderNoUEImpl -> getOrderNo");
 
 		return seqNoStr;
 
