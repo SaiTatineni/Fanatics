@@ -48,7 +48,7 @@ import com.fanatics.sterling.util.XMLUtil;
 import com.yantra.interop.japi.YIFCustomApi;
 import com.yantra.yfs.japi.YFSEnvironment;
 
-public class manageDistributionGroupAPI implements YIFCustomApi {
+public class ManageDistributionGroupAPI implements YIFCustomApi {
 
 	private Properties props = null;
 	private Document docOutXML = null;
