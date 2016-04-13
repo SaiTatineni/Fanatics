@@ -37,8 +37,6 @@ public interface VendorFeedConstants {
 	public static final String SERVICE_fanatics_DELETE_DISTRIBUTION = "deleteDistribution";
 	public static final String SERVICE_fanatics_CREATE_DISTRIBUTION = "createDistribution";
 	public static final String ARG_fanatics_RTAM_DISTRIBUTION_GROUP = "RTAM_MONITOR_DG";
-	public static final String ARG_fanatics_CALLING_ORG_CODE = "CallingOrganizationCode";
-	public static final String ATT_fanatics_DEFAULT_DISTRIBUTION_RULE_ID = "DefaultDistributionRuleId";
-	public static final String ATT_fanatics_OPERATION = "Operation";
 	public static final String CONSTANT_fanatics_DELETE = "Delete";
+
 }
