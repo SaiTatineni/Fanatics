@@ -51,11 +51,7 @@ public class FANYFSBeforeCreateOrderUEImpl implements YFSBeforeCreateOrderUE, YI
 
 	private static YFCLogCategory log = YFCLogCategory.instance("com.yantra.yfc.log.YFCLogCategory");
 
-	@Override
-	public void setProperties(Properties arg0) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
+	private Properties props = null;
 
 	@Override
 	public String beforeCreateOrder(YFSEnvironment env, String inStr) throws YFSUserExitException {
@@ -136,9 +132,7 @@ public class FANYFSBeforeCreateOrderUEImpl implements YFSBeforeCreateOrderUE, YI
 							
 							changeElements(EleMinDelivery, minDelivery, CreateOrderConstants.ELE_MIN_DELIVERY);
 							changeElements(EleMaxDelivery, maxDelivery, CreateOrderConstants.ELE_MAX_DELIVERY);
-							
-							break;
-
+														
 						}
 					}
 				}
@@ -170,6 +164,17 @@ public class FANYFSBeforeCreateOrderUEImpl implements YFSBeforeCreateOrderUE, YI
 		EleToBeChanged.setAttribute(CreateOrderConstants.ATT_COMMITTED_DATE, deliveryDate);
 		EleToBeChanged.setAttribute(CreateOrderConstants.ATT_DATE_TYPE_ID, dateTypeId);
 
+	}
+	
+	@Override
+	public void setProperties(Properties arg0) throws Exception {
+		
+		props = arg0;
+	}
+	
+	protected String getProperty(String name) {
+
+		return props.getProperty(name);
 	}
 
 }

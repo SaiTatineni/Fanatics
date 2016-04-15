@@ -45,11 +45,11 @@ public interface CreateOrderConstants {
 		public static final String ELE_MIN_DELIVERY   = "MIN_DELIVERY";
 		public static final String ELE_MAX_DELIVERY   = "MAX_DELIVERY";
 		public static final String EL_CARRIER_SERVICE = "CarrierService";
-		public static final String EL_ORDER_LINE = "OrderLine";
+		public static final String EL_ORDER_LINE 	  = "OrderLine";
 		
 		//Fanatics XPATH Create Order
-		public static final String XPATH_ORDER_DATES          = "//OrderDates";
-		public static final String XPATH_PROMISHED_SHIP_DATE  = "//OrderDates/OrderDate[@DateTypeId=\"PROMISED_SHIP_DATE\"]";
+		public static final String XPATH_ORDER_DATES          = "./OrderDates";
+		public static final String XPATH_PROMISHED_SHIP_DATE  = "./OrderDates/OrderDate[@DateTypeId=\"PROMISED_SHIP_DATE\"]";
 		public static final String XPATH_CARRIER_SERVICE_CODE = "//Order/@CarrierServiceCode";
 		public static final String XPATH_MAX_TRANSIT_DAYS     = "//CarrierServiceList/CarrierService/@MaximumTransitDays";
 		public static final String XPATH_FIXED_TRANSIT_DAYS   = "//CarrierServiceList/CarrierService/@FixedTransitDays";
