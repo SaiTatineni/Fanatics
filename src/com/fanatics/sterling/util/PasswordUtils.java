@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+
 /**
  * <p>
  * This class contains util metods for generation of SHA-256 hash and comparing the hash values
@@ -34,7 +36,7 @@ import java.util.Arrays;
  */
 
 public class PasswordUtils {
-
+/*
 	 /**
  	 * Gets the hash as byte array using the SHA-256 algo for a given string and salt
  	 * @param password the password
@@ -53,7 +55,7 @@ public class PasswordUtils {
 	 }
 	 
 
-	 /**
+	/**
  	 * Compare existing hashString with the enterted string    
  	 * @param existing the existing
  	 * @param entered the entered
@@ -63,7 +65,9 @@ public class PasswordUtils {
  	public static boolean compare(String existing,String entered){
 		boolean retFlag = false;
 		try{
-			byte oldPass[] = Base64Coder.decode(existing);
+			
+			
+			byte oldPass[] = Base64.decode(existing);
 			byte newPass[] = PasswordUtils.getHash(entered, null);
 			return Arrays.equals(oldPass, newPass);
 		
@@ -85,7 +89,7 @@ public class PasswordUtils {
 	 * @throws Exception the exception
 	 */
 	public static final String getHash(String password)throws Exception{
-		return Base64Coder.encode(getHash(password,null));
+		return Base64.encode(getHash(password,null));
 	}
 	
 	
