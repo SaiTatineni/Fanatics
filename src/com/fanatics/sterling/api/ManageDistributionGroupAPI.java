@@ -107,8 +107,8 @@ public class ManageDistributionGroupAPI implements YIFCustomApi {
 			logger.info("Invoking Create Distribution");
 			docOutXML = CommonUtil.invokeService(env, VendorFeedConstants.SERVICE_fanatics_CREATE_DISTRIBUTION, inXML);
 		}
-
-		logger.info("Output xml is: "+ XMLUtil.getXMLString(docOutXML));
+		//Commenting below line as create/deleteDistribution APIs will not have any output XML and this will lead to NPE.
+		//logger.info("Output xml is: "+ XMLUtil.getXMLString(docOutXML));
 		return docOutXML;
 	}
 
