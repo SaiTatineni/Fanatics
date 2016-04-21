@@ -19,11 +19,11 @@
 				<xsl:for-each select="Order/OrderLines/OrderLine">
 				<OrderLine>
 					<xsl:attribute name="OrderedQty"><xsl:value-of
-					select="//Order/OrderLines/OrderLine/@OrderedQty" /></xsl:attribute>
+					select="@OrderedQty" /></xsl:attribute>
 					<xsl:attribute name="PrimeLineNo"><xsl:value-of
-					select="//Order/OrderLines/OrderLine/@PrimeLineNo" /></xsl:attribute>
+					select="@PrimeLineNo" /></xsl:attribute>
 					<xsl:attribute name="SubLineNo"><xsl:value-of
-					select="//Order/OrderLines/OrderLine/@SubLineNo" /></xsl:attribute>
+					select="@SubLineNo" /></xsl:attribute>
 					
 					
 					<Item>
