@@ -70,7 +70,22 @@ public class FANYFSBeforeCreateOrderUEImpl implements YFSBeforeCreateOrderUE, YI
 
 		try {
 
-			String carrierServiceCode = SCXmlUtil.getXpathAttribute(inDoc.getDocumentElement(),
+			String SellerOrganizationCode = SCXmlUtil.getXpathAttribute(inDoc.getDocumentElement(), CreateOrderConstants.XPATH_SELLER_ORG_CODE);
+		
+			Document getOrgListInput 	  = SCXmlUtil.createDocument(CreateOrderConstants.ATT_ORGANIZATION);
+			getOrgListInput.getDocumentElement().setAttribute(CreateOrderConstants.ATT_ORGANIZATION_CODE, SellerOrganizationCode);
+			
+			log.verbose("Calling getOrganizationList API for SellerOrganizationCode : " + SellerOrganizationCode);
+			
+			Document getOrgListOutput     = CommonUtil.invokeAPI(env, CreateOrderConstants.API_GET_ORG_LIST,
+					getOrgListInput);
+			
+			String ExtnCancelOnBackorder  = SCXmlUtil.getXpathAttribute(getOrgListOutput.getDocumentElement(), 
+					CreateOrderConstants.XPATH_EXTN_CANCEL);
+
+			inDoc.getDocumentElement().setAttribute("CancelOrderOnBackorder", ExtnCancelOnBackorder);
+			
+			String carrierServiceCode    = SCXmlUtil.getXpathAttribute(inDoc.getDocumentElement(),
 					CreateOrderConstants.XPATH_CARRIER_SERVICE_CODE);
 			Document listCarrierServiceInput = SCXmlUtil.createDocument(CreateOrderConstants.EL_CARRIER_SERVICE);
 			listCarrierServiceInput.getDocumentElement().setAttribute(CreateOrderConstants.ATT_CARRIER_SERVICE_CODE, carrierServiceCode);

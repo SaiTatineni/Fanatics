@@ -19,5 +19,12 @@
 				Type="VARCHAR2" XMLName="ExtnLeagueCode" XMLGroup="Extn" />				
 			</Attributes>
 		</Entity>
+		<Entity TableName="YFS_ORGANIZATION">
+			<Attributes>
+				<Attribute ColumnName="EXTN_CANCEL_ON_BACK_ORDER" DataType="Text-1" 
+				DefaultValue="' '" Description="A flag to determine whether the order will be cancelled if there is an inventory shortageitem." 
+				Nullable="false" Type="VARCHAR2" XMLName="ExtnCancelOnBackorder" XMLGroup="Extn"/>
+			</Attributes>
+		</Entity>
 	</Entities>
 </DBSchema>

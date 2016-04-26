@@ -53,16 +53,21 @@ public interface CreateOrderConstants {
 		public static final String XPATH_CARRIER_SERVICE_CODE = "//Order/@CarrierServiceCode";
 		public static final String XPATH_MAX_TRANSIT_DAYS     = "//CarrierServiceList/CarrierService/@MaximumTransitDays";
 		public static final String XPATH_FIXED_TRANSIT_DAYS   = "//CarrierServiceList/CarrierService/@FixedTransitDays";
+		public static final String XPATH_EXTN_CANCEL  		  = "//OrganizationList/Organization[1]/Extn/@ExtnCancelOnBackorder";
+		public static final String XPATH_SELLER_ORG_CODE 	  = "//Order/@SellerOrganizationCode";
 		
 		//Fanatics API names
 		public static final String API_LIST_CARRIER_SERVICE = "listCarrierService";
+		public static final String API_GET_ORG_LIST   		= "getOrganizationList";
 		
 		//Fanatics XML Attributes
 		public static final String ATT_CARRIER_SERVICE_CODE = "CarrierServiceCode";
 		public static final String ATT_COMMITTED_DATE 		= "CommittedDate";
 		public static final String ATT_DATE_TYPE_ID 		= "DateTypeId";
 		public static final String ATT_DOCUMENT_TYPE 		= "DocumentType";
-		
+		public static final String ATT_ORGANIZATION         = "Organization";
+		public static final String ATT_ORGANIZATION_CODE    = "OrganizationCode";
+					
 		//Fanatics Miscellaneous Values
 		public static final String SIMPLE_DATE_FORMAT = "yyyy-MM-dd";
 		public static final String NO_VALUE			  = "";
