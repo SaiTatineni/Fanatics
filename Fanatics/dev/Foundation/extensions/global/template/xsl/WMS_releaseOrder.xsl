@@ -306,12 +306,6 @@
   			</xsl:attribute>
 		</PersonInfoBillTo>
 		<CustomAttributes>
-			<xsl:attribute name="CustomerOrderNo">
-         		<xsl:value-of select="//OrderRelease/CustomAttributes/@CustomerOrderNo"/>
-  			</xsl:attribute>
-  			<xsl:attribute name="PriorityCode">
-         		<xsl:value-of select="//OrderRelease/CustomAttributes/@PriorityCode"/>
-  			</xsl:attribute>
   			<xsl:attribute name="ReleaseControlNbr">
          		<xsl:value-of select="//OrderRelease/CustomAttributes/@ReleaseControlNbr"/>
   			</xsl:attribute>
