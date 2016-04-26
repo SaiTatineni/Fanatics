@@ -87,7 +87,7 @@ public class FanaticsProcessReleaseMsgService implements YIFCustomApi {
 			inDocCloned.getDocumentElement().appendChild(eleReleaseControlNbrClone);
 			
 			logger.verbose("FanaticsProcessReleaseMsgService -> Found " + shipAloneList.getLength()
-					+ " ship alone lines and " + shipAloneList.getLength() + " ship together lines");
+					+ " ship alone lines and " + shipTogetherList.getLength() + " ship together lines");
 			
 			if (shipAloneList != null && shipAloneList.getLength() > 0) {
 				for (int i = 0; i < shipAloneList.getLength(); i++) {

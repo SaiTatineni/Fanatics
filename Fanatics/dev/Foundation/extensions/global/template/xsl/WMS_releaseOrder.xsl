@@ -177,10 +177,10 @@
   			</xsl:attribute>
   				<!-- put this under order line?-->
   			<xsl:attribute name="Status">
-         		<xsl:value-of select="./Item/OrderStatuses/OrderStatus/@Status"/>
+         		<xsl:value-of select="./OrderStatuses/OrderStatus/@Status"/>
   			</xsl:attribute>
   			<xsl:attribute name="StatusQty">
-         		<xsl:value-of select="./Item/OrderStatuses/OrderStatus/@StatusQty"/>
+         		<xsl:value-of select="./OrderStatuses/OrderStatus/@StatusQty"/>
   			</xsl:attribute>
   			<xsl:attribute name="Charges">
          		<xsl:value-of select="./LinePackListPriceInfo/@Charges"/>
