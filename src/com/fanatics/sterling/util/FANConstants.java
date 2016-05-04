@@ -309,4 +309,11 @@ public interface FANConstants {
 	public static final String ARG_fanatics_CALLING_ORG_CODE = "CallingOrganizationCode";
 	public static final String ATT_fanatics_DEFAULT_DISTRIBUTION_RULE_ID = "DefaultDistributionRuleId";
 	public static final String ATT_fanatics_OPERATION = "Operation";
+	
+	//REST
+	public static final String AUTHTYPE_BASIC = "Basic";
+	public static final int SC_OK = 200;
+	public static final int SC_CREATED = 201;
+	public static final int SC_NO_CONTENT = 204;
+
 }
