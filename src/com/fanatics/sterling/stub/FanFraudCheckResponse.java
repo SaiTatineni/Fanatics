@@ -61,9 +61,10 @@ private static YFCLogCategory logger = YFCLogCategory.instance("com.yantra.yfc.l
 	
 		Document docFraudResponse = setDocumentAttrs(doc, "INTERNAL");
 		
-		logger.verbose("fraudResponse input: " + XMLUtil.getXMLString(doc));
+		logger.info("fraudResponse input: " + XMLUtil.getXMLString(doc));
 	
-		String state = XMLUtil.getXpathProperty(doc,"Order/PersonInfo/@State");
+		String state = XMLUtil.getXpathProperty(doc,"Order/PersonInfoShipTo/@State");
+		logger.info("state is "+ state);
 		
 		if(state.equalsIgnoreCase("NY")){
 			docFraudResponse.getDocumentElement().setAttribute("FraudResponseCode", "2");
@@ -73,10 +74,11 @@ private static YFCLogCategory logger = YFCLogCategory.instance("com.yantra.yfc.l
 		}
 		else{
 			docFraudResponse.getDocumentElement().setAttribute("FraudResponseCode", "1");
-			docFraudResponse.getDocumentElement().setAttribute("FraudToken", String.valueOf(tokenGenerator()));
+			docFraudResponse.getDocumentElement().setAttribute("FraudToken", XMLUtil.getXpathProperty(doc,"Order/@OrderNo"));
+			
 		}
 		
-		logger.verbose("fraudResponse output: " + XMLUtil.getXMLString(docFraudResponse));
+		logger.info("fraudResponse output: " + XMLUtil.getXMLString(docFraudResponse));
 
 		return docFraudResponse;
 	}
@@ -93,7 +95,7 @@ private static YFCLogCategory logger = YFCLogCategory.instance("com.yantra.yfc.l
 		
 		logger.verbose("fraudResponse input: " + XMLUtil.getXMLString(doc));
 	
-		String state = XMLUtil.getXpathProperty(doc,"Order/PersonInfo/@State");
+		String state = XMLUtil.getXpathProperty(doc,"Order/PersonInfoShipTo/@State");
 		
 		if (state.equalsIgnoreCase("FL")){
 			docFraudResponse.getDocumentElement().setAttribute("FraudResponseCode", "0");
@@ -118,6 +120,8 @@ private static YFCLogCategory logger = YFCLogCategory.instance("com.yantra.yfc.l
 		docFraudResponse.getDocumentElement().setAttribute("SellerOrganizationCode", XMLUtil.getXpathProperty(inDoc,"Order/@SellerOrganizationCode"));
 		docFraudResponse.getDocumentElement().setAttribute("FraudResponseSender", sender);
 		
+		if (sender.equals("ACCERTIFY"))
+		 docFraudResponse.getDocumentElement().setAttribute("FraudToken", XMLUtil.getXpathProperty(inDoc,"Order/@OrderNo"));
 		
 		Element eleFraudResponse = docFraudResponse.getDocumentElement();
 
@@ -142,12 +146,12 @@ private static YFCLogCategory logger = YFCLogCategory.instance("com.yantra.yfc.l
 		
 		Document doc = XMLUtil.getDocument(inputString);
 		
-		System.out.println("Input: " + SCXmlUtil.getString(doc));
+		logger.info("Input: " + SCXmlUtil.getString(doc));
 				
 		FanFraudCheckResponse response = new FanFraudCheckResponse();
 		doc = response.internalFraudResponse(doc);
 		//addr.getAppeasementOffers(null, doc);
-		System.out.println("Output: " + SCXmlUtil.getString(doc));
+		logger.info("Output: " + SCXmlUtil.getString(doc));
 
 		
 	}
