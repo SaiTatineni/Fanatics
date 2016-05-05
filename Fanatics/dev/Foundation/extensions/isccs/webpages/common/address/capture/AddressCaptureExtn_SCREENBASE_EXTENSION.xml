@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionMetaData>
+    <ScreenExtension extnClassName="AddressCaptureExtn"
+        extnPackage="extn.common.address.capture"
+        originalScreen="isccs.common.address.capture.AddressCapture"
+        originalScreenPackage="isccs.common.address.capture" type="diffrential">
+        <Items>
+            <TextField _sc_extensibility_moveOrder="1"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="before"
+                _sc_extensibility_referenceUId="txtState"
+                label="$(_scBundle:extn_Company_Name)" uId="extn_Companyname"/>
+        </Items>
+    </ScreenExtension>
+</ExtensionMetaData>

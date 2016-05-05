@@ -306,4 +306,36 @@ public interface FANConstants {
 	public static final String ATT_SHIPMENT_TYPE = "ShipmentType";
 	public static final String AT_SHIPMENT_KEY = "ShipmentKey";	
 	
+	public static final String ARG_fanatics_CALLING_ORG_CODE = "CallingOrganizationCode";
+	public static final String ATT_fanatics_DEFAULT_DISTRIBUTION_RULE_ID = "DefaultDistributionRuleId";
+	public static final String ATT_fanatics_OPERATION = "Operation";
+	
+	//REST
+	public static final String AUTHTYPE_BASIC = "Basic";
+	public static final int SC_OK = 200;
+	public static final int SC_CREATED = 201;
+	public static final int SC_NO_CONTENT = 204;
+	
+	public static final String API_GET_ORDER_DET = "getOrderDetails";
+	public static final String ATT_ORDER_NAME = "OrderName";
+	public static final String CONSTANT_ZERO = "0";
+	public static final String CONSTANT_TWO = "2";
+	public static final String CONSTANT_ONE = "1";
+	public static final String ATT_Notes = "Notes";
+	public static final String ATT_Note = "Note";
+	public static final String ELEM_fanatics_OrderHoldType = "OrderHoldType"; 
+	public static final String ATT_fanatics_HoldType = "HoldType";
+	public static final String STR_1100 = "1100";
+	public static final String ATT_NoteText = "NoteText";
+	public static final String STR_1300 = "1300";
+	public static final String API_getCommonCodeList = "getCommonCodeList";
+	public static final String ATT_CommonCode = "CommonCode";
+	public static final String ATT_CodeShortDescription = "CodeShortDescription";
+	public static final String CONST_DateFormat = "yyyy-MM-dd HH:mm:ss";
+	public static final String ATT_OrderDates = "OrderDates";
+	public static final String ATT_OrderDate = "OrderDate";
+	public static final String ATT_DateTypeId = "DateTypeId";
+	public static final String ATT_ExpectedDate = "ExpectedDate";
+
+
 }

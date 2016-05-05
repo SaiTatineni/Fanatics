@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionMetaData>
+    <ScreenExtension extnClassName="ResolveHoldExtn"
+        extnPackage="extn.order.orderHold"
+        originalScreen="isccs.order.orderHold.ResolveHold"
+        originalScreenPackage="isccs.order.orderHold" type="diffrential">
+        <Items>
+            <Button _sc_extensibility_moveOrder="1"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="after"
+                _sc_extensibility_referenceUId="update_holds"
+                class="isccsScreen idxSpecialButton floatRight saveButtonAlign resolveHoldSaveButton"
+                label="$(_scSimpleBundle:extn_Resolve)" showLabel="true" uId="extn_Resolve"/>
+            <Button _sc_extensibility_moveOrder="2"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="after"
+                _sc_extensibility_referenceUId="extn_Resolve"
+                class="isccsScreen idxSpecialButton floatRight saveButtonAlign resolveHoldSaveButton"
+                label="$(_scSimpleBundle:extn_Approve)" showLabel="true" uId="extn_Approve"/>
+            <Button _sc_extensibility_operation="change"
+                _sc_extensibility_referenceUId="update_holds" renderHidden="true"/>
+            <GridX _sc_extensibility_operation="change" _sc_extensibility_referenceUId="activeHolds">
+                <Structure>
+                    <Layout>
+                        <View _sc_extensibility_moveOrder="3"
+                            _sc_extensibility_operation="insert"
+                            _sc_extensibility_position="after"
+                            _sc_extensibility_referenceUId="activeHolds_tblColProducts"
+                            field="extn_Holdstatus"
+                            name="$(_scSimpleBundle:extn_Hold_Status)"
+                            uId="extn_Holdstatus" width="15%"/>
+                        <View _sc_extensibility_operation="change"
+                            _sc_extensibility_referenceUId="activeHolds_tblColProducts"
+                            uId="activeHolds_tblColProducts" width="35%"/>
+                    </Layout>
+                </Structure>
+            </GridX>
+        </Items>
+    </ScreenExtension>
+</ExtensionMetaData>

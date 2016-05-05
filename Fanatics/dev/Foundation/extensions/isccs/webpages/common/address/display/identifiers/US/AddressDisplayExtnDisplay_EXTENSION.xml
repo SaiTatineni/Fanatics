@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionMetaData>
+    <ScreenDisplayExtension extnClassName="AddressDisplayExtn"
+        identifierId="US"
+        originalScreen="isccs.common.address.display.AddressDisplay" originalScreenPackage="isccs.common.address.display">
+        <Items>
+            <Label _sc_extensibility_operation="change"
+                _sc_extensibility_referenceUId="lblName" label="$(_scSimpleBundle:extn_Company_Name)"/>
+            <Label _sc_extensibility_moveOrder="2"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="before"
+                _sc_extensibility_referenceUId="lblAddressLine1" uId="extn_Companyname"/>
+            <Label _sc_extensibility_moveOrder="4"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="after"
+                _sc_extensibility_referenceUId="lblCityStateZip" uId="extn_Email"/>
+            <Label _sc_extensibility_moveOrder="5"
+                _sc_extensibility_operation="move"
+                _sc_extensibility_position="after"
+                _sc_extensibility_referenceUId="lblCountry" uId="extn_Email"/>
+            <Label __isCurrentOrgInsert="true"
+                _sc_extensibility_moveOrder="7"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="after"
+                _sc_extensibility_referenceUId="extn_Email" uId="extn_Phone"/>
+        </Items>
+    </ScreenDisplayExtension>
+</ExtensionMetaData>

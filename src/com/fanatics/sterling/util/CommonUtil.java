@@ -15,11 +15,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -747,7 +749,7 @@ public final class CommonUtil {
 	 * @return          Current date-time string in desired format
 	 * @throws IllegalArgumentException for Invalid input
 	 * @throws Exception for all others
-	 */
+	 *//*
 	public static String getCurrentTime(String outputFormat)
 			throws IllegalArgumentException, Exception {
 		//Create current date object
@@ -757,7 +759,7 @@ public final class CommonUtil {
 		return formatDate(currentDateTime, outputFormat);
 	}
 
-	/**
+	*//**
 	 * Converts date object to date-time string
 	 * @param inputDate Date object to be converted
 	 * @param outputFormat Output format.
@@ -766,7 +768,7 @@ public final class CommonUtil {
 	 * @return          Formatted date-time string
 	 * @throws IllegalArgumentException for Invalid input
 	 * @throws Exception for all others
-	 */
+	 *//*
 	public static String formatDate(java.util.Date inputDate,
 			String outputFormat) throws IllegalArgumentException, Exception {
 		//Validate input date value
@@ -788,7 +790,7 @@ public final class CommonUtil {
 	
 
 
-	/**
+	*//**
 	 * Method getFutureDate gives the future date in 
 	 * yyyyMMddHHmmss format based on the number of days 
 	 * passed. It adds the  number of days passed 
@@ -796,7 +798,7 @@ public final class CommonUtil {
 	 *  @param dateFormat
 	 * @param numberOfDays
 	 * @return authExpirationDate
-	 */
+	 *//*
 	public static String getFutureDate(int numberOfDays , String format){
 		
 		DateFormat dateFormat = new SimpleDateFormat(format);		  
@@ -842,14 +844,14 @@ public final class CommonUtil {
 	return codeValue;
 	}
 	
-	/**
+	*//**
 	    * Returns current date-time string in desired format
 	    *
 	    * @param outputFormat Desired output date-time format
 	    * @return          Current date-time string in desired format
 	    * @throws IllegalArgumentException for Invalid input
 	    * @throws Exception for all others
-	    */
+	    *//*
 	    public static String getCurrentTime(String outputFormat)
 	        throws IllegalArgumentException, Exception
 	    {
@@ -860,7 +862,7 @@ public final class CommonUtil {
 	        return formatDate(currentDateTime, outputFormat);
 	    }
 		    
-	    /**
+	    *//**
 	     * Converts date object to date-time string
 	     * @param inputDate Date object to be converted
 	     * @param outputFormat Output format.
@@ -869,7 +871,7 @@ public final class CommonUtil {
 	     * @return          Formatted date-time string
 	     * @throws IllegalArgumentException for Invalid input
 	     * @throws Exception for all others
-	     */
+	     *//*
 	     public static String formatDate(
 	         java.util.Date inputDate,
 	         String outputFormat)
@@ -893,7 +895,7 @@ public final class CommonUtil {
 	         SimpleDateFormat formatter = new SimpleDateFormat(outputFormat);
 	         return formatter.format(inputDate);
 	     }
-	     /**
+	     *//**
 	      * Converts date object to date-time string in
 	      * default date format
 	      *
@@ -902,23 +904,23 @@ public final class CommonUtil {
 	      * @throws IllegalArgumentException for Invalid input
 	      * @throws Exception for all others
 	      * @see getDefaultDateFormat
-	      */
+	      *//*
 	      public static String convertDate(java.util.Date inputDate)
 	          throws IllegalArgumentException, Exception
 	      {
 	          return formatDate(inputDate, getDefaultDateFormat());
 	      }
-	      /**
+	      *//**
 	       * Returns default date-time string format i.e.
 	       * <code>yyyyMMdd'T'HH:mm:ss</code>
 	       * @return Default date-time string i.e. yyyyMMdd'T'HH:mm:ss
-	       */
+	       *//*
 	       protected static String getDefaultDateFormat()
 	       {
 	           //Yantra default date-time string format
 	           return "yyyyMMdd'T'HH:mm:ss";
 	       }
-	       /**
+	       *//**
 	        * Converts date-time string to Date object.
 	        * Date-time string should be in default date format
 	        * @author sahmed
@@ -926,7 +928,7 @@ public final class CommonUtil {
 	        * @return          Equivalent date object to input string
 	        * @throws IllegalArgumentException for Invalid input
 	        * @throws Exception for all others
-	        */
+	        *//*
 	        public static java.util.Date convertDate(String inputDate)
 	            throws IllegalArgumentException, Exception
 	        {
@@ -952,7 +954,7 @@ public final class CommonUtil {
 	                return convertDate(inputDate, getShortDefaultDateFormat());
 	            }
 	        }
-	        /**
+	        *//**
 	         * Converts date-time string to Date object
 	         *
 	         * @param inputDate Date-time string to be converted
@@ -962,7 +964,7 @@ public final class CommonUtil {
 	         * @return          Equivalent date object to input string
 	         * @throws IllegalArgumentException for Invalid input
 	         * @throws Exception for all others
-	         */
+	         *//*
 	         public static java.util.Date convertDate(
 	             String inputDate,
 	             String inputDateFormat)
@@ -992,27 +994,27 @@ public final class CommonUtil {
 	             return formatter.parse(inputDate, position);
 	         }
 	         
-	         /**
+	         *//**
 	     	* Returns default date-time string format i.e.
 	     	* <code>yyyyMMdd'T'HH:mm:ss</code>
 	     	* @return Default date-time string i.e. yyyyMMdd'T'HH:mm:ss
-	     	*/
+	     	*//*
 	     	protected static String getDefaultDateFormatISO()
 	     	{
 	     		//Yantra default date-time string format
 	     		return "yyyy-MM-dd'T'HH:mm:ss";
 	     	}
-	     	/**
+	     	*//**
 	         * Returns short default date string format i.e.
 	         * <code>yyyyMMdd</code>
-	         */
+	         *//*
 	         protected static String getShortDefaultDateFormat()
 	         {
 	             //Yantra short default date string format
 	             return YYYYMMDD;
 	         }
 	         
-	     /**
+	     *//**
 	      * Returns time difference between two date objects
 	      *
 	      * @param startTime Start time
@@ -1021,7 +1023,7 @@ public final class CommonUtil {
 	      * @return        Time difference in HH:mm:ss.SSS format
 	      * @throws IllegalArgumentException for Invalid input
 	      * @throws Exception for all others
-	      */
+	      *//*
 	      public static String getTimeDifference(
 	          Date startTime,
 	          Date endTime)
@@ -1088,9 +1090,9 @@ public final class CommonUtil {
 	          return result;
 	      }
 	      
-	  /**
+	  *//**
 	   * Adds leading zeros to given value until max length is reached
-	   */
+	   *//*
 	  private static String addLeadingZeros(long value, int maxLength)
 	  {
 	      String result = Long.toString(value);
@@ -1103,20 +1105,20 @@ public final class CommonUtil {
 	      return result;
 	  }
 
-	  /**
+	  *//**
 	   * Returns time rounded to two decimal double value
 	   * @author sahmed
 	   * @param double value
 	   * @return double rounded in $$.$$ format
 	   * @throws Exception for all others
-	   */
+	   *//*
 	  
 		public static double roundTwoDecimals(double d) {
 	    	DecimalFormat twoDForm = new DecimalFormat("#.##");
 		return Double.valueOf(twoDForm.format(d));
 	}
 
-	    /**
+	    *//**
 		    * Adds specified interval to input date.
 		    * @author sahmed
 		    * Valid values for Interval are Calendar.YEAR,
@@ -1129,7 +1131,7 @@ public final class CommonUtil {
 		    * @return Date after addition
 		    * @throws IllegalArgumentException for Invalid input
 		    * @throws Exception for all others
-		    */
+		    *//*
 		    public static Date addToDate(
 		        Date inputDate,
 		        int interval,
@@ -1160,11 +1162,11 @@ public final class CommonUtil {
 		        return calendar.getTime();
 		    }
 		    
-		    /**
+		    *//**
 			    * Gets the password policy from local commoncode
 				* @return Map containing the password policy details
 			    * @throws Exception
-			    */  
+			    *//*  
 		    public static Map<String,String> getLocalPasswordPolicyMap() throws Exception{
 		    	logger.verbose("Entering CommonUtilities.getPasswordPolicyMap()");
 		    	
@@ -1211,7 +1213,7 @@ public final class CommonUtil {
 		                return true;
 		            }
 		            return false;   
-		    }
+		    }*/
 	
 }
 

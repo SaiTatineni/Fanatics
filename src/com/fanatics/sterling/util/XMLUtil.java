@@ -20,9 +20,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -39,12 +43,19 @@ import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.yantra.yfc.log.YFCLogCategory;
+
+
+
 	/**
  * A helper class providing methods for XML document processing.
  * All methods are static, object of this class cannot be created.
  *
  */
 public class XMLUtil {
+	
+	private static YFCLogCategory logger = YFCLogCategory.instance("com.yantra.yfc.log.YFCLogCategory");
+
     /**
      *	Avoid instantiating an object
      */
@@ -1046,4 +1057,35 @@ public class XMLUtil {
             destElem.setAttribute( attrName, attrValue );
         }
     }
+    
+    public static String getXpathProperty(Document document, String path) {
+
+		XPathFactory xpathfactory = XPathFactory.newInstance();
+		XPath xpath = xpathfactory.newXPath();
+
+		String xpathAttribute = "";
+		try {
+
+			xpathAttribute = xpath.compile(path).evaluate(document);
+		} catch (XPathExpressionException e) {
+			logger.error("Failed to get Xpath for :" + path, e);
+		}
+
+		return xpathAttribute;
+	}
+    
+    public static Integer getXpathPropertyIntegerCount(Document document, String path, QName number) {
+
+		XPathFactory xpathfactory = XPathFactory.newInstance();
+		XPath xpath = xpathfactory.newXPath();
+
+		Integer xpathCount = 0;
+		try {
+			xpathCount = ((Double) xpath.evaluate(path, document, number)).intValue();
+		} catch (XPathExpressionException e) {
+			logger.error("Error getting xpath total count for xpath: " + path, e);
+		}
+
+		return xpathCount;
+	}
 }

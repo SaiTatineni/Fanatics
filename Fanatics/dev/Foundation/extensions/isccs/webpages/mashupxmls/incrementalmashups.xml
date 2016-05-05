@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mashups>
+    <mashup id="businessCard_getCustomerDetails">
+        <API Name="getCustomerDetails">
+            <Input>
+                <Customer CustomerID=""
+                    DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode" OrganizationCode=""/>
+            </Input>
+            <Template>
+                <Customer CustomerID="" CustomerKey="" CustomerType="" OrganizationCode="">
+                    <BuyerOrganization OrganizationName=""/>
+                    <CustomerContactList>
+                        <CustomerContact/>
+                    </CustomerContactList>
+                    <Extn ExtnAccountBalance="" ExtnFancashBalance=""/>
+                </Customer>
+            </Template>
+        </API>
+    </mashup>
+    <mashup id="storefrontBrowsing_getOrderDetails">
+        <API Name="getOrderDetails">
+            <Input>
+                <Order
+                    DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode" OrderHeaderKey=""/>
+            </Input>
+            <Template>
+                <Order OrderHeaderKey="">
+                    <OrderLines TotalNumberOfRecords=""/>
+                    <CustomAttributes CustomerOrderNo=""/>
+                </Order>
+            </Template>
+        </API>
+    </mashup>
+    <mashup id="orderList_getOrderList">
+        <API Name="getOrderList">
+            <Input>
+                <Order ApplyQueryTimeout="Y" BillToID=""
+                    CallingOrganizationCode="" CustomerEMailID=""
+                    CustomerEMailIDQryType="" CustomerFirstName=""
+                    CustomerLastName="" CustomerPONo=""
+                    CustomerPhoneNo="" CustomerZipCode=""
+                    DisplayLocalizedFieldInLocale="xml:CurrentUser:/User/@Localecode"
+                    DocumentType="" DraftOrderFlag="" EnterpriseCode=""
+                    FromOrderDate="" IgnoreOrdering="N"
+                    MaximumRecords="" OrderDate=""
+                    OrderDateQryType="DATERANGE" OrderName=""
+                    OrderNameQryType="" OrderNo="" QueryTimeout=""
+                    ReadFromHistory="" TaxExemptFlag=""
+                    TaxExemptionCertificate="" ToOrderDate="">
+                    <OrderHoldType HoldType="" Status="" StatusQryType=""/>
+                    <OrderLine>
+                        <OrderHoldType HoldType="" Status="" StatusQryType=""/>
+                    </OrderLine>
+                    <OrderBy>
+                        <Attribute Desc="Y" Name="OrderDate"/>
+                    </OrderBy>
+                </Order>
+            </Input>
+            <Template>
+                <OrderList TotalNumberOfRecords="">
+                    <Order BillToID="" BuyerOrganizationCode=""
+                        BuyerUserId="" CustomerContactID=""
+                        CustomerEMailID="" CustomerFirstName=""
+                        CustomerLastName="" CustomerPONo=""
+                        CustomerPhoneNo="" CustomerZipCode=""
+                        DisplayStatusDescription="" DocumentType=""
+                        DraftOrderFlag="" EnterpriseCode="" EntryType=""
+                        HoldFlag="" MaxOrderStatusDesc=""
+                        MultipleStatusesExist="" OrderDate=""
+                        OrderHeaderKey="" OrderName="" OrderNo=""
+                        OverallStatus="" SellerOrganizationCode=""
+                        Status="" TaxExemptFlag=""
+                        TaxExemptionCertificate="" isHistory="">
+                        <Extn ExtnCustomerOrderNo=""/>
+                        <PriceInfo Currency="" TotalAmount=""/>
+                        <PersonInfoBillTo AddressLine1=""/>
+                        <CustomAttributes CustomerOrderNo=""/>
+                        <PersonInfoShipTo AddressID="" AddressLine1=""
+                            AddressLine2="" City="" Company=""
+                            Country="" CountryDesc="" DayPhone=""
+                            Department="" EMailID="" EveningPhone=""
+                            FirstName="" IsAddressVerified=""
+                            IsCommercialAddress="" LastName=""
+                            MiddleName="" MobilePhone="" PersonID=""
+                            PersonInfoKey="" State="" Suffix="" Title=""
+                            TitleDesc="" ZipCode="" isHistory=""/>
+                        <OrderDates>
+                            <OrderDate ActualDate="" CommittedDate=""
+                                DateTypeId="" ExpectedDate=""
+                                OrderHeaderKey="" OrderLineKey=""
+                                OrderReleaseKey="" RequestedDate=""/>
+                        </OrderDates>
+                    </Order>
+                </OrderList>
+            </Template>
+        </API>
+    </mashup>
+</mashups>

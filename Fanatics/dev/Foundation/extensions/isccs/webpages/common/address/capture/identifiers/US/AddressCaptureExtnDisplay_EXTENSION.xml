@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionMetaData>
+    <ScreenDisplayExtension extnClassName="AddressCaptureExtn"
+        identifierId="US"
+        originalScreen="isccs.common.address.capture.AddressCapture" originalScreenPackage="isccs.common.address.capture">
+        <Items>
+            <TextField __isCurrentOrgInsert="true"
+                _sc_extensibility_moveOrder="2"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="before"
+                _sc_extensibility_referenceUId="txtDayPhone" uId="extn_Companyname"/>
+        </Items>
+    </ScreenDisplayExtension>
+</ExtensionMetaData>

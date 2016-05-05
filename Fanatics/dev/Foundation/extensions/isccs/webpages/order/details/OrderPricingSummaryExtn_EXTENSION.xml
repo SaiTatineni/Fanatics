@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionMetaData>
+    <ScreenExtension extnClassName="OrderPricingSummaryExtn"
+        extnPackage="extn.order.details"
+        originalScreen="isccs.order.details.OrderPricingSummary"
+        originalScreenPackage="isccs.order.details" type="diffrential">
+        <Items>
+            <DataLabel _sc_extensibility_moveOrder="1"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="before"
+                _sc_extensibility_referenceUId="pnlAdjustments"
+                label="$(_scBundle:extn_Promo_Coupon)" uId="extn_Promo/coupon"/>
+            <DataLabel _sc_extensibility_moveOrder="2"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="after"
+                _sc_extensibility_referenceUId="extn_Promo/coupon"
+                label="$(_scBundle:extn_Fancash_Discount)" uId="extn_Fancashdiscount"/>
+            <DataLabel _sc_extensibility_moveOrder="3"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="before"
+                _sc_extensibility_referenceUId="pnlAdjustments"
+                label="$(_scBundle:extn_Appeasements)" uId="extn_Appeasements"/>
+            <DataLabel _sc_extensibility_moveOrder="4"
+                _sc_extensibility_operation="insert"
+                _sc_extensibility_position="before"
+                _sc_extensibility_referenceUId="pnlAdjustments"
+                label="$(_scBundle:extn_Header_Charges)" uId="extn_headercharges"/>
+            <Label _sc_extensibility_operation="change"
+                _sc_extensibility_referenceUId="lblNoHdrAdjustments" renderHidden="true"/>
+        </Items>
+    </ScreenExtension>
+</ExtensionMetaData>
