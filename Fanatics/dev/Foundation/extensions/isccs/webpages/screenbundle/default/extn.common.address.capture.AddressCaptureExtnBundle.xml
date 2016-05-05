@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScreenBundle
+    screenBundleId="extn.common.address.capture.AddressCaptureExtnBundle" screenId="extn.common.address.capture.AddressCaptureExtn">
+    <BundleEntries>
+        <BundleEntry bundleEntryId="extn_Companyname_TextField_label"
+            bundleKey="extn_Company_Name" bundleValueFn="_scBundle"
+            property="label" type="WIDGET" uId="extn_Companyname"/>
+    </BundleEntries>
+</ScreenBundle>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Extensions>
+    <Identifier id="">
+        <UIExtns>
+            <UIExtn appScreen="isccs.order.details.OrderSummary"
+                extnScreen="extn.order.details.OrderSummaryExtn" type="diffrential"/>
+            <UIExtn
+                appScreen="isccs.common.address.display.AddressDisplay"
+                extnScreen="extn.common.address.display.AddressDisplayExtn" type="diffrential">
+                <IdentifierList>
+                    <Identifier identifierId="US" type="change"/>
+                </IdentifierList>
+            </UIExtn>
+            <UIExtn appScreen="isccs.order.details.OrderSummaryLines"
+                extnScreen="extn.order.details.OrderSummaryLinesExtn" type="diffrential"/>
+            <UIExtn appScreen="isccs.order.search.OrderListScreen"
+                extnScreen="extn.order.search.OrderListScreenExtn" type="diffrential"/>
+            <UIExtn appScreen="isccs.order.orderHold.ResolveHold"
+                extnScreen="extn.order.orderHold.ResolveHoldExtn" type="diffrential"/>
+            <UIExtn
+                appScreen="isccs.common.address.capture.AddressCapture"
+                extnScreen="extn.common.address.capture.AddressCaptureExtn" type="diffrential">
+                <IdentifierList>
+                    <Identifier identifierId="US" type="change"/>
+                </IdentifierList>
+            </UIExtn>
+            <UIExtn
+                appScreen="isccs.order.fulfillmentSummary.FSShippingScreen"
+                extnScreen="extn.order.fulfillmentSummary.FSShippingScreenExtn" type="diffrential"/>
+            <UIExtn
+                appScreen="isccs.shipment.shipmentTracking.lineStatePanels.ShipTrackShipping"
+                extnScreen="extn.shipment.shipmentTracking.lineStatePanels.ShipTrackShippingExtn" type="diffrential"/>
+            <UIExtn
+                appScreen="isccs.shipment.shipmentTracking.lineStatePanels.grids.ShipTrack_ContainerLines"
+                extnScreen="extn.shipment.shipmentTracking.lineStatePanels.grids.ShipTrack_ContainerLinesExtn" type="diffrential"/>
+            <UIExtn
+                appScreen="isccs.shipment.shipmentTracking.lineStatePanels.grids.ShipTrack_ShipmentLines"
+                extnScreen="extn.shipment.shipmentTracking.lineStatePanels.grids.ShipTrack_ShipmentLinesExtn" type="diffrential"/>
+        </UIExtns>
+    </Identifier>
+</Extensions>

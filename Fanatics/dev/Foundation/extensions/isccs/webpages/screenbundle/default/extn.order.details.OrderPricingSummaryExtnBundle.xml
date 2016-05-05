@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScreenBundle
+    screenBundleId="extn.order.details.OrderPricingSummaryExtnBundle" screenId="extn.order.details.OrderPricingSummaryExtn">
+    <BundleEntries>
+        <BundleEntry bundleEntryId="extn_Promo/coupon_DataLabel_label"
+            bundleKey="extn_Promo_Coupon" bundleValueFn="_scBundle"
+            property="label" type="WIDGET" uId="extn_Promo/coupon"/>
+        <BundleEntry
+            bundleEntryId="extn_Fancashdiscount_DataLabel_label"
+            bundleKey="extn_Fancash_Discount" bundleValueFn="_scBundle"
+            property="label" type="WIDGET" uId="extn_Fancashdiscount"/>
+        <BundleEntry bundleEntryId="extn_Appeasements_DataLabel_label"
+            bundleKey="extn_Appeasements" bundleValueFn="_scBundle"
+            property="label" type="WIDGET" uId="extn_Appeasements"/>
+        <BundleEntry bundleEntryId="extn_headercharges_DataLabel_label"
+            bundleKey="extn_Header_Charges" bundleValueFn="_scBundle"
+            property="label" type="WIDGET" uId="extn_headercharges"/>
+    </BundleEntries>
+</ScreenBundle>

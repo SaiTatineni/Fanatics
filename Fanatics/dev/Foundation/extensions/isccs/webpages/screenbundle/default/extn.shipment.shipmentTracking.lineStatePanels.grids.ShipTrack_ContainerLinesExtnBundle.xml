@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScreenBundle
+    screenBundleId="extn.shipment.shipmentTracking.lineStatePanels.grids.ShipTrack_ContainerLinesExtnBundle" screenId="extn.shipment.shipmentTracking.lineStatePanels.grids.ShipTrack_ContainerLinesExtn">
+    <BundleEntries>
+        <BundleEntry bundleEntryId="extn_shipement_track_View_name"
+            bundleKey="extn_Shipement_Tracking_Numbers"
+            bundleValueFn="_scSimpleBundle" property="name"
+            type="WIDGET" uId="extn_shipement_track"/>
+        <BundleEntry bundleEntryId="extn_return_track_View_name"
+            bundleKey="extn_Return_Shipment_Tracking_Numbers"
+            bundleValueFn="_scSimpleBundle" property="name"
+            type="WIDGET" uId="extn_return_track"/>
+    </BundleEntries>
+</ScreenBundle>
