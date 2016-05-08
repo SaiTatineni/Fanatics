@@ -31,6 +31,23 @@ public class FraudCheck {
 
 	private static YFCLogCategory logger= YFCLogCategory.instance(YFCLogCategory.class);
 	
+	
+	public Document invokeFraudCheck(YFSEnvironment yfsEnv, Document inXML){
+		
+		
+		try {
+			// Invoke the rest service
+			Document outDoc = CommonUtil.invokeService(yfsEnv, "FanaticsFraudCheckREST", inXML);
+			
+			//Send response to queue for processing
+			CommonUtil.invokeService(yfsEnv, "FanSendFraudResponse", outDoc);
+			
+		} catch (Exception e) {
+				e.printStackTrace();
+		}
+		
+	}
+	
 	public Document processFraudResponse(YFSEnvironment yfsEnv, Document inXML) throws ParserConfigurationException{
 
 		logger.info("Inside processFraudResponse");
@@ -92,10 +109,10 @@ public class FraudCheck {
 					"EnterpriseCode='"+eleFraudResponseRoot.getAttribute(FANConstants.ATT_EnterpriseCode)+"' " +
 					"DocumentType='"+eleFraudResponseRoot.getAttribute(FANConstants.ATT_DocumentType)+"'/>";
 			logger.info("inputXML loop : "+ strInputGetOrderDet);
-			Document docInputGetOrderDet = convertStringToDocument(strInputGetOrderDet);
+			Document docInputGetOrderDet = XMLUtil.getDocument(strInputGetOrderDet);
 
 			String templateInputGetOrderDet = "<Order OrderName='' Status=''><CustomAttributes FraudToken='' /></Order>" ; // OrderName is temporarily being used to store the token from the Fraud Engine
-			Document docTemplateGetOrderDet = convertStringToDocument(templateInputGetOrderDet);
+			Document docTemplateGetOrderDet = XMLUtil.getDocument(templateInputGetOrderDet);
 			logger.info("docTemplateGetOrderDet "+ XMLUtil.getXMLString(docTemplateGetOrderDet));
 			// invoke getOrderDetails
 			Document docOutputGetOrderDet = null;
@@ -148,12 +165,13 @@ public class FraudCheck {
 		// check the Fraud Response Code
 		String strResponseCode = inXML.getDocumentElement().getAttribute(FanaticsFraudCheckConstants.ATT_fanatics_FraudResponseCode);
 		logger.info("strResponseCode "+strResponseCode);
+		
 
 		if (strResponseCode.equals(FANConstants.CONSTANT_ZERO)) {
 
 			logger.info("response is accept");
 			// Resolve all holds 
-			docIPChangeOrder = resolveAllHolds(yfsEnv, inXML);
+			docIPChangeOrder = resolveAllHolds(yfsEnv, resolveAllHoldsInput(inXML));
 
 			logger.info("docIPChangeOrder inXML 1"+ XMLUtil.getXMLString(docIPChangeOrder));
 
@@ -161,7 +179,7 @@ public class FraudCheck {
 			docIPChangeOrder = stampDateTimeUser(yfsEnv, docIPChangeOrder, strResponseCode);
 
 			// Add Notes
-			docIPChangeOrder = addNotes(yfsEnv, docIPChangeOrder, strResponseCode);
+			docIPChangeOrder = addNotes( docIPChangeOrder, addNotesText(strResponseCode));
 			logger.info("docIPChangeOrder inXML 2"+ XMLUtil.getXMLString(docIPChangeOrder));
 
 			// Invoke FanaticsBuyersRemorse service
@@ -178,11 +196,11 @@ public class FraudCheck {
 			logger.info("response is reject");
 
 			// resolve all holds
-			docIPChangeOrder = resolveAllHolds(yfsEnv, inXML);
+			docIPChangeOrder = resolveAllHolds(yfsEnv, resolveAllHoldsInput(inXML));
 
 			// Add Notes
 			logger.info("point 1");
-			docIPChangeOrder = addNotes(yfsEnv, docIPChangeOrder, strResponseCode);
+			docIPChangeOrder = addNotes(docIPChangeOrder, addNotesText(strResponseCode));
 
 			// stampOrder with System Date-Time and the user who resolve this hold
 			docIPChangeOrder = stampDateTimeUser(yfsEnv, docIPChangeOrder, strResponseCode);			
@@ -232,7 +250,7 @@ public class FraudCheck {
 					"<OrderHoldTypes><OrderHoldType HoldType='PENDINGREVIEW' ReasonText='' ResolverUserId='' Status='1100'/>" +
 					"<OrderHoldType HoldType='PENDINGEVALUATION' ReasonText='' ResolverUserId='' Status='1300'/>" +
 					"</OrderHoldTypes></Order>";
-			docIPChangeOrder = convertStringToDocument(strIPChangeOrder);
+			docIPChangeOrder = XMLUtil.getDocument(strIPChangeOrder);
 			// invoke changeOrder API
 			logger.info("review docIPChangeOrder xml is: "+ XMLUtil.getXMLString(docIPChangeOrder));
 			try {
@@ -283,20 +301,14 @@ public class FraudCheck {
 
 
 
-	private Document addNotes(YFSEnvironment yfsEnv, Document docIPChangeOrder, String strResponseCode) {
+	private Document addNotes(Document docIPChangeOrder, String noteText) {
 
-		logger.info("response code is "+ strResponseCode);
+		logger.info("response code is "+ noteText);
 		Element eleInputChangeOrderRoot = docIPChangeOrder.getDocumentElement();
 
 		Element eleNotes = docIPChangeOrder.createElement(FANConstants.ATT_Notes);
 		Element eleNote = docIPChangeOrder.createElement(FANConstants.ATT_Note);
-
-		if (strResponseCode.equals(FANConstants.CONSTANT_ZERO))
-			eleNote.setAttribute(FANConstants.ATT_NoteText, "Fraud Engine passed the order");
-		else if (strResponseCode.equals(FANConstants.CONSTANT_ONE))
-			eleNote.setAttribute(FANConstants.ATT_NoteText, "Fraud Engine passed the request to Accertify");
-		else if (strResponseCode.equals(FANConstants.CONSTANT_TWO))
-			eleNote.setAttribute(FANConstants.ATT_NoteText, "Fraud Engine rejected the order");
+		eleNote.setAttribute(FANConstants.ATT_NoteText, noteText);
 
 		eleNotes.appendChild(eleNote);
 
@@ -306,12 +318,28 @@ public class FraudCheck {
 
 		return docIPChangeOrder;
 	}
+	
+	private String addNotesText(String strResponseCode){
+		
+		logger.info("response code is "+ strResponseCode);
 
+		String noteText = "";
+		
+		if (strResponseCode.equals(FANConstants.CONSTANT_ZERO))
+			noteText =  "Fraud Engine passed the order";
+		else if (strResponseCode.equals(FANConstants.CONSTANT_ONE))
+			noteText =  "Fraud Engine passed the request to Accertify";
+		else if (strResponseCode.equals(FANConstants.CONSTANT_TWO))
+			noteText = "Fraud Engine rejected the order";
+		
+		return noteText;
+		
+	}
 
-
-	public Document resolveAllHolds(YFSEnvironment yfsEnv, Document inXML) {
-
-		logger.info("resolveAllHolds inXML 1"+ XMLUtil.getXMLString(inXML));
+	
+	private Document resolveAllHoldsInput(Document inXML){
+		logger.info("resolveAllHoldsInput inXML 1"+ XMLUtil.getXMLString(inXML));
+		
 		Document docIPChangeOrder = null;
 		Element eleInputChangeOrderRoot = inXML.getDocumentElement();
 
@@ -319,18 +347,23 @@ public class FraudCheck {
 				"EnterpriseCode='"+eleInputChangeOrderRoot.getAttribute(FANConstants.ATT_EnterpriseCode)+"' " +
 				"DocumentType='"+eleInputChangeOrderRoot.getAttribute(FANConstants.ATT_DocumentType)+"'></Order>";
 
-		docIPChangeOrder = convertStringToDocument(strIPChangeOrder);
+		docIPChangeOrder = XMLUtil.getDocument(strIPChangeOrder);	
+		
+		return docIPChangeOrder;
+	}
 
-		logger.info("resolveAllHolds docIPChangeOrder is: "+ XMLUtil.getXMLString(docIPChangeOrder));
+
+	public Document resolveAllHolds(YFSEnvironment yfsEnv, Document inXML) {
+
+		logger.info("resolveAllHolds docIPChangeOrder is: "+ XMLUtil.getXMLString(inXML));
 
 		// call getOrderDetails to get the present holds
-
 		String templateGetOrderDetails = "<Order EnterpriseCode=''><OrderHoldTypes><OrderHoldType HoldType='' Status=''></OrderHoldType></OrderHoldTypes></Order>" ;
-		Document docGetOrderDetails = convertStringToDocument(templateGetOrderDetails);
+		Document docGetOrderDetails = XMLUtil.getDocument(templateGetOrderDetails);
 
 		Document docOPGetOrderDetails = null;
 		try {
-			docOPGetOrderDetails = CommonUtil.invokeAPI(yfsEnv, docGetOrderDetails, FANConstants.API_GET_ORDER_DET, docIPChangeOrder);
+			docOPGetOrderDetails = CommonUtil.invokeAPI(yfsEnv, docGetOrderDetails, FANConstants.API_GET_ORDER_DET, inXML);
 			logger.info("resolveAllHolds docOPGetOrderDetails is: "+ XMLUtil.getXMLString(docOPGetOrderDetails));
 		} catch (Exception e) {
 
@@ -338,13 +371,13 @@ public class FraudCheck {
 		}
 
 		// add OrderHoldTypes Element to the xml
-		Element eleOrderHoldTypes = docIPChangeOrder.createElement(FanaticsFraudCheckConstants.ATT_fanatics_OrderHoldTypes);
-		Node tempNode = docIPChangeOrder.importNode(eleOrderHoldTypes, false);
-		docIPChangeOrder.getDocumentElement().appendChild(tempNode);
-		logger.info("resolveAllHolds docIPChangeOrder is 11: "+ XMLUtil.getXMLString(docIPChangeOrder));
+		Element eleOrderHoldTypes = inXML.createElement(FanaticsFraudCheckConstants.ATT_fanatics_OrderHoldTypes);
+		Node tempNode = inXML.importNode(eleOrderHoldTypes, false);
+		inXML.getDocumentElement().appendChild(tempNode);
+		logger.info("resolveAllHolds docIPChangeOrder is 11: "+ XMLUtil.getXMLString(inXML));
 
 		// get the handle of the OrderHoldTypes element present in the docIPChangeOrder
-		eleOrderHoldTypes = (Element) docIPChangeOrder.getDocumentElement().getElementsByTagName(FanaticsFraudCheckConstants.ATT_fanatics_OrderHoldTypes).item(0);
+		eleOrderHoldTypes = (Element) inXML.getDocumentElement().getElementsByTagName(FanaticsFraudCheckConstants.ATT_fanatics_OrderHoldTypes).item(0);
 
 		// add the Hold Types (to be resolved) to the changeOrder input xml
 		NodeList nlOrderHoldType = docOPGetOrderDetails.getElementsByTagName(FanaticsFraudCheckConstants.ATT_fanatics_OrderHoldType);
@@ -361,14 +394,14 @@ public class FraudCheck {
 			if (eleOrderHoldType.getAttribute(FANConstants.ATT_STATUS).equals(FANConstants.STR_1100)){
 				logger.info("inside the if cond ");
 				// create new element OrderHoldType
-				Element eleIPOrderHoldType = docIPChangeOrder.createElement(FanaticsFraudCheckConstants.ATT_fanatics_OrderHoldType);
+				Element eleIPOrderHoldType = inXML.createElement(FanaticsFraudCheckConstants.ATT_fanatics_OrderHoldType);
 				eleIPOrderHoldType.setAttribute(FanaticsFraudCheckConstants.ATT_fanatics_HoldType, eleOrderHoldType.getAttribute(FanaticsFraudCheckConstants.ATT_fanatics_HoldType));
 				eleIPOrderHoldType.setAttribute(FANConstants.ATT_STATUS, FANConstants.STR_1300);
 
-				tempNode = docIPChangeOrder.importNode(eleIPOrderHoldType, false);
+				tempNode = inXML.importNode(eleIPOrderHoldType, false);
 				eleOrderHoldTypes.appendChild(tempNode);
 
-				logger.info("resolveAllHolds docIPChangeOrder is 12: "+ XMLUtil.getXMLString(docIPChangeOrder));
+				logger.info("resolveAllHolds docIPChangeOrder is 12: "+ XMLUtil.getXMLString(inXML));
 			}
 
 		}
@@ -381,12 +414,84 @@ public class FraudCheck {
 				e.printStackTrace();
 				}*/
 
-		return docIPChangeOrder;
+		return inXML;
+	}
+	
+	private void processHoldChange(YFSEnvironment yfsEnv, Document inXML) {
+		
+		String holdType = XMLUtil.getXpathProperty(inXML, "/OrderHoldType/@HoldType");
+		String holdStatus = XMLUtil.getXpathProperty(inXML, "/OrderHoldType/@Status");
+
+
+		if(holdType.equals("Pending Review")){
+			
+			//Create base input
+			String orderHeaderKey = XMLUtil.getXpathProperty(inXML, "/OrderHoldType/Order/@OrderHeaderKey");
+
+			Document baseInput = XMLUtil.getDocument("<Order/>");
+			Element baseInputEle = baseInput.getDocumentElement();
+			baseInputEle.setAttribute("OrderHeaderKey", orderHeaderKey);
+			
+			
+			//Resolve
+			if(holdStatus.equals("1300")){
+				
+				//Resolve all holds
+				baseInput = resolveAllHolds(yfsEnv, baseInput);
+
+				//Add notes to the order
+				baseInput = addNotes( baseInput, "User resolved the Pending Review hold");
+				
+				//Stamp the order
+				baseInput = stampDateTimeUser(yfsEnv, baseInput, "Resolved");		
+				
+				changeOrder(yfsEnv, baseInput);
+				
+				
+			}
+			//Reject
+			else if(holdStatus.equals("1200")){
+				
+				//Add notes to the order
+				baseInput = addNotes( baseInput, "User rejected the Pending Review hold");
+
+				//Stamp the order
+				baseInput = stampDateTimeUser(yfsEnv, baseInput, "Rejected");	
+				
+				changeOrder(yfsEnv, baseInput);
+				
+				//Cancel the order
+				/**
+				 * Call FanaticsCancelOrder service to cancel the lines on the order
+				 */
+				try {
+					CommonUtil.invokeService(yfsEnv, FanaticsFraudCheckConstants.SERVICE_fanatics_FanaticsCancelOrder, baseInput);
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	private void changeOrder(YFSEnvironment yfsEnv, Document inXML){
+		
+		 // invoke changeOrder API
+		try {
+			CommonUtil.invokeAPI(yfsEnv, FANConstants.API_CHANGE_ORDER, inXML);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
 	}
 
 
 
-	private static Document convertStringToDocument(String xmlStr) {
+	/*private static Document convertStringToDocument(String xmlStr) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
 		DocumentBuilder builder;  
 		try 
@@ -398,5 +503,5 @@ public class FraudCheck {
 			e.printStackTrace();  
 		} 
 		return null;
-	}
+	}*/
 }
