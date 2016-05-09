@@ -44,6 +44,7 @@ import org.w3c.dom.NodeList;
 
 import com.fanatics.sterling.constants.OrderReleaseConstants;
 import com.fanatics.sterling.util.CommonUtil;
+import com.fanatics.sterling.util.FANDBUtil;
 import com.fanatics.sterling.util.XMLUtil;
 import com.sterlingcommerce.baseutil.SCXmlUtil;
 import com.yantra.interop.japi.YIFCustomApi;
@@ -71,7 +72,7 @@ public class FanaticsProcessReleaseMsgService implements YIFCustomApi {
 
 			/*
 			 * For each of the node lists the FanaticsPublishReleaseMsgToWMS service
-			 * will be invoked. ReleaseKey is used to verify that the 
+			 * will be invoked. 
 			 */
 		
 			NodeList shipTogetherList    = SCXmlUtil.getXpathNodes(inDoc.getDocumentElement(),
@@ -189,7 +190,8 @@ public class FanaticsProcessReleaseMsgService implements YIFCustomApi {
 
 		for (int i = 0; i < quantity; i++) {
 
-			String releaseControlNbr = getNexSeqNo(env);
+			//String releaseControlNbr = getNexSeqNo(env);
+			String releaseControlNbr = FANDBUtil.getNexSeqNo(env, FanaticsProcessReleaseMsgService.class.getName(), OrderReleaseConstants.SEQ_FANATICS_ORDER_NO);
 
 			//eleReleaseControlNbr.setAttribute(OrderReleaseConstants.ATT_RELEASE_CTRL_NBR, releaseControlNbr);
 			setReleaseControlNumber(eleReleaseControlNbr, OrderReleaseLevelControlNbr, releaseControlNbr );
