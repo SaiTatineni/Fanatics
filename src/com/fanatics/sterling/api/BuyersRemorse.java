@@ -65,7 +65,14 @@ public class BuyersRemorse {
 		
 		// Get the Remorse period in minutes from common codes
 		String strIpGetCommonCodeList = "<CommonCode CodeType='BuyersRemorse' CodeValue='FANATICS_US'></CommonCode>";
-		Document docIpGetCommonCodeList = XMLUtil.getDocument(strIpGetCommonCodeList);
+		Document docIpGetCommonCodeList = null;
+		try 
+		{  
+			docIpGetCommonCodeList = XMLUtil.getDocument(strIpGetCommonCodeList);
+		} catch (Exception e) {  
+			e.printStackTrace();  
+		} 
+		
 		logger.info("addBuyersRemorse Input xml is 2: "+ XMLUtil.getXMLString(docIpGetCommonCodeList));
 		
 		Document docOPGetCommonCodeList=null;

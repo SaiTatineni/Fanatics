@@ -32,19 +32,28 @@ public class FraudCheck {
 	private static YFCLogCategory logger= YFCLogCategory.instance(YFCLogCategory.class);
 	
 	
-	public Document invokeFraudCheck(YFSEnvironment yfsEnv, Document inXML){
+	public Document initiateFraudCheck(YFSEnvironment yfsEnv, Document inXML){
 		
-		
+		Document outDoc =null;;
 		try {
 			// Invoke the rest service
-			Document outDoc = CommonUtil.invokeService(yfsEnv, "FanaticsFraudCheckREST", inXML);
-			
-			//Send response to queue for processing
-			CommonUtil.invokeService(yfsEnv, "FanSendFraudResponse", outDoc);
+			outDoc = CommonUtil.invokeService(yfsEnv, "FanaticsFraudCheckREST", inXML);
 			
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
+		
+		
+		return outDoc;
+		
+	}
+	
+	public Document invokeFraudRESTCheck(YFSEnvironment yfsEnv, Document inXML){
+		
+		Document d = null;
+		
+		//TODO
+		return d;
 		
 	}
 	
@@ -109,10 +118,24 @@ public class FraudCheck {
 					"EnterpriseCode='"+eleFraudResponseRoot.getAttribute(FANConstants.ATT_EnterpriseCode)+"' " +
 					"DocumentType='"+eleFraudResponseRoot.getAttribute(FANConstants.ATT_DocumentType)+"'/>";
 			logger.info("inputXML loop : "+ strInputGetOrderDet);
-			Document docInputGetOrderDet = XMLUtil.getDocument(strInputGetOrderDet);
+			Document docInputGetOrderDet = null;
+			try 
+			{  
+				docInputGetOrderDet = XMLUtil.getDocument(strInputGetOrderDet);
+			} catch (Exception e) {  
+				e.printStackTrace();  
+			} 
 
 			String templateInputGetOrderDet = "<Order OrderName='' Status=''><CustomAttributes FraudToken='' /></Order>" ; // OrderName is temporarily being used to store the token from the Fraud Engine
-			Document docTemplateGetOrderDet = XMLUtil.getDocument(templateInputGetOrderDet);
+			
+			Document docTemplateGetOrderDet = null;
+			try 
+			{  
+				docTemplateGetOrderDet = XMLUtil.getDocument(templateInputGetOrderDet);
+			} catch (Exception e) {  
+				e.printStackTrace();  
+			} 
+			
 			logger.info("docTemplateGetOrderDet "+ XMLUtil.getXMLString(docTemplateGetOrderDet));
 			// invoke getOrderDetails
 			Document docOutputGetOrderDet = null;
@@ -250,7 +273,14 @@ public class FraudCheck {
 					"<OrderHoldTypes><OrderHoldType HoldType='PENDINGREVIEW' ReasonText='' ResolverUserId='' Status='1100'/>" +
 					"<OrderHoldType HoldType='PENDINGEVALUATION' ReasonText='' ResolverUserId='' Status='1300'/>" +
 					"</OrderHoldTypes></Order>";
-			docIPChangeOrder = XMLUtil.getDocument(strIPChangeOrder);
+			
+			try 
+			{  
+				docIPChangeOrder = XMLUtil.getDocument(strIPChangeOrder);
+			} catch (Exception e) {  
+				e.printStackTrace();  
+			} 
+			
 			// invoke changeOrder API
 			logger.info("review docIPChangeOrder xml is: "+ XMLUtil.getXMLString(docIPChangeOrder));
 			try {
@@ -347,7 +377,12 @@ public class FraudCheck {
 				"EnterpriseCode='"+eleInputChangeOrderRoot.getAttribute(FANConstants.ATT_EnterpriseCode)+"' " +
 				"DocumentType='"+eleInputChangeOrderRoot.getAttribute(FANConstants.ATT_DocumentType)+"'></Order>";
 
-		docIPChangeOrder = XMLUtil.getDocument(strIPChangeOrder);	
+		try 
+		{  
+			docIPChangeOrder = XMLUtil.getDocument(strIPChangeOrder);
+		} catch (Exception e) {  
+			e.printStackTrace();  
+		} 	
 		
 		return docIPChangeOrder;
 	}
@@ -359,7 +394,14 @@ public class FraudCheck {
 
 		// call getOrderDetails to get the present holds
 		String templateGetOrderDetails = "<Order EnterpriseCode=''><OrderHoldTypes><OrderHoldType HoldType='' Status=''></OrderHoldType></OrderHoldTypes></Order>" ;
-		Document docGetOrderDetails = XMLUtil.getDocument(templateGetOrderDetails);
+		
+		Document docGetOrderDetails = null;
+		try 
+		{  
+			docGetOrderDetails = XMLUtil.getDocument(templateGetOrderDetails);
+		} catch (Exception e) {  
+			e.printStackTrace();  
+		} 
 
 		Document docOPGetOrderDetails = null;
 		try {
@@ -417,10 +459,14 @@ public class FraudCheck {
 		return inXML;
 	}
 	
-	private void processHoldChange(YFSEnvironment yfsEnv, Document inXML) {
+	public void processHoldChange(YFSEnvironment yfsEnv, Document inXML) {
+		
+		logger.info("processHoldChange input: "+ XMLUtil.getXMLString(inXML));
 		
 		String holdType = XMLUtil.getXpathProperty(inXML, "/OrderHoldType/@HoldType");
 		String holdStatus = XMLUtil.getXpathProperty(inXML, "/OrderHoldType/@Status");
+
+		logger.info("pholdType: "+ holdType + ", holdStatus: " + holdStatus);
 
 
 		if(holdType.equals("Pending Review")){
@@ -428,7 +474,15 @@ public class FraudCheck {
 			//Create base input
 			String orderHeaderKey = XMLUtil.getXpathProperty(inXML, "/OrderHoldType/Order/@OrderHeaderKey");
 
-			Document baseInput = XMLUtil.getDocument("<Order/>");
+			Document baseInput = null;
+			
+			try 
+			{  
+				baseInput = XMLUtil.getDocument("<Order/>");
+			} catch (Exception e) {  
+				e.printStackTrace();  
+			} 
+			
 			Element baseInputEle = baseInput.getDocumentElement();
 			baseInputEle.setAttribute("OrderHeaderKey", orderHeaderKey);
 			
