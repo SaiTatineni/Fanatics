@@ -49,7 +49,7 @@ public interface OrderReleaseConstants {
 		//Fanatics XPATH Release Order
 		public static final String XPATH_ITEM_ID           = "./Item/@ItemID";
 		public static final String XPATH_ORDER_CUSTOM_ATTR = "./Order/CustomAttributes";
-		public static final String XPATH_CUSTOM_ATTR = "./CustomAttributes";
+		public static final String XPATH_CUSTOM_ATTR 	   = "./CustomAttributes";
 		public static final String XPATH_SHIP_ALONE_N      = "/OrderRelease/OrderLine[ItemDetails/Extn/@ExtnShipAlone='N']";
 		public static final String XPATH_SHIP_ALONE_Y      = "/OrderRelease/OrderLine[ItemDetails/Extn/@ExtnShipAlone='Y']";
 		public static final String XPATH_STATUS_QTY        = "./OrderStatuses/OrderStatus/@StatusQty";
